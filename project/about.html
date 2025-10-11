@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | ElectroStore</title>
+  <meta name="description" content="Learn about ElectroStore — our mission, values, team, and what makes us your trusted partner for electronics components." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --primary:#2563eb;        /* blue-600 */
+      --primary-700:#1d4ed8;    /* blue-700 */
+      --accent:#f59e0b;         /* amber-500 */
+      --bg:#0b1220;             /* deep slate */
+      --panel:#0f172a;          /* slate-900 */
+      --muted:#94a3b8;          /* slate-400 */
+      --text:#e2e8f0;           /* slate-200 */
+      --card:#111827;           /* gray-900 */
+      --success:#10b981;        /* emerald-500 */
+      --ring:0 0 0 3px rgba(37,99,235,.3);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --radius-lg:24px;
+      --gap:18px;
+      --max:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif; 
+      color:var(--text); background:linear-gradient(180deg,#0a0f1e 0%, #0b1324 100%);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{width:100%; max-width:var(--max); margin-inline:auto; padding:0 20px}
+    .btn{display:inline-flex; align-items:center; gap:10px; border:none; background:var(--primary); color:white; padding:12px 18px; border-radius:12px; font-weight:600; box-shadow:var(--shadow); cursor:pointer}
+    .btn:hover{background:var(--primary-700)}
+    .btn.secondary{background:transparent; border:1px solid #1f2937}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid #1f2937; background:rgba(255,255,255,.02); color:var(--muted); font-size:12px}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
+      background:linear-gradient(180deg,rgba(2,6,23,.9) 0%, rgba(2,6,23,.7) 100%);
+      border-bottom:1px solid rgba(148,163,184,.16);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .logo{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
+    .logo-mark{width:28px; height:28px; display:grid; place-items:center; border-radius:8px; background:linear-gradient(135deg,var(--primary),#38bdf8)}
+    .menu{display:flex; align-items:center; gap:18px}
+    .menu a{color:var(--muted)}
+    .menu a.active, .menu a:hover{color:#fff}
+    .mobile-toggle{display:none}
+
+    /* Hero */
+    .hero{padding:64px 0 28px}
+    .hero-wrap{display:grid; grid-template-columns:1.3fr .7fr; gap:var(--gap); align-items:center}
+    .hero .title{font-size:42px; line-height:1.15; margin:.2rem 0 1rem; font-weight:800}
+    .hero .lead{font-size:18px; color:var(--muted)}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(148,163,184,.15); padding:22px; border-radius:var(--radius-lg); box-shadow:var(--shadow)}
+    .hero-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--gap)}
+    .stat{padding:18px; border-radius:16px; border:1px solid rgba(148,163,184,.12); background:rgba(255,255,255,.02); text-align:center}
+    .stat h3{margin:6px 0 4px; font-size:28px}
+    .stat p{margin:0; color:var(--muted); font-size:13px}
+
+    /* Sections */
+    section{padding:48px 0}
+    .section-head{display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:22px}
+    .section-head h2{margin:0; font-size:28px}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
+    .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:var(--gap)}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(148,163,184,.15); padding:20px; border-radius:var(--radius); box-shadow:var(--shadow)}
+    .card h3{margin:0 0 8px}
+    .muted{color:var(--muted)}
+
+    /* Timeline */
+    .timeline{position:relative; margin-left:8px}
+    .timeline::before{content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(180deg,rgba(148,163,184,.3),rgba(148,163,184,.05))}
+    .t-item{position:relative; padding-left:38px; margin-bottom:18px}
+    .t-item::before{content:""; position:absolute; left:2px; top:6px; width:16px; height:16px; border-radius:50%; background:linear-gradient(135deg,var(--primary),#38bdf8); box-shadow:0 0 0 3px rgba(37,99,235,.25)}
+
+    /* Team */
+    .team{display:grid; grid-template-columns:repeat(4,1fr); gap:var(--gap)}
+    .avatar{width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,#0ea5e9,#22c55e); display:grid; place-items:center; font-weight:700}
+
+    /* FAQ */
+    .faq{display:grid; grid-template-columns:1fr; gap:12px}
+    details{border:1px solid rgba(148,163,184,.16); border-radius:14px; padding:14px 16px; background:rgba(255,255,255,.02)}
+    summary{cursor:pointer; list-style:none; font-weight:600}
+    summary::-webkit-details-marker{display:none}
+
+    /* Footer */
+    footer{border-top:1px solid rgba(148,163,184,.16); padding:26px 0; color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .hero-wrap{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr 1fr}
+      .team{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .menu{display:none}
+      .mobile-toggle{display:inline-flex; align-items:center; gap:8px; background:transparent; border:1px solid #1f2937; color:var(--text); padding:8px 10px; border-radius:10px}
+      .grid-3,.grid-2{grid-template-columns:1fr}
+      .hero .title{font-size:34px}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <div class="logo-mark" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M5 12h6l-2 6h10l-4-12H9l2-6H5l-2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span>ElectroStore</span>
+      </div>
+      <nav class="menu" id="menu">
+        <a href="index.html" >Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html">Contact</a>
+        <!-- <a class="btn" href="/catalog.html">View Catalog</a> -->
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-controls="menu" aria-expanded="false">Menu ▾</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-wrap">
+      <div>
+        <span class="badge">Your trusted electronics components partner</span>
+        <h1 class="title">About <span style="color:var(--primary)">ElectroStore</span></h1>
+        <p class="lead">We help makers, students, and professionals build faster. From resistors to Raspberry Pi, we stock vetted parts, publish beginner‑friendly guides, and ship pan‑India with care.</p>
+        <div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap">
+          <a class="btn" href="shop.html">Shop Components</a>
+          <a class="btn secondary" href="#mission">Our Mission</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-grid">
+          <!-- <div class="stat">
+            <h3>10k+</h3><p>Orders fulfilled</p>
+          </div>
+          <div class="stat">
+            <h3>3,500+</h3><p>SKUs in stock</p>
+          </div> -->
+          <div class="stat">
+            <h3>4.8★</h3><p>Average rating</p>
+          </div>
+          <div class="stat">
+            <h3>48 hrs</h3><p>Avg. dispatch time</p>
+          </div>
+        </div>
+        <p class="muted" style="margin-top:10px">Numbers are updated quarterly and reflect store‑wide performance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & Values -->
+  <section id="mission">
+    <div class="container">
+      <div class="section-head">
+        <h2>Our Mission & Values</h2>
+        <span class="badge">Quality • Speed • Support</span>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Mission</h3>
+          <p class="muted">Enable anyone to prototype and ship electronics with confidence by providing reliable components, clear documentation, and responsive support.</p>
+        </div>
+        <div class="card">
+          <h3>Quality First</h3>
+          <p class="muted">Every batch is tested for specs and consistency. We work with vetted suppliers and perform incoming QA on popular parts.</p>
+        </div>
+        <div class="card">
+          <h3>Community</h3>
+          <p class="muted">We publish project guides, sponsor college clubs, and offer student discounts to support the next generation of builders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>Why Choose ElectroStore?</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Genuine Parts</h3>
+          <p class="muted">Sourced from authorized channels with traceability for popular ICs, sensors, and modules.</p>
+        </div>
+        <div class="card">
+          <h3>Fast, Safe Shipping</h3>
+          <p class="muted">Secure packaging and tracked delivery. Free shipping over ₹299 within India.</p>
+        </div>
+        <div class="card">
+          <h3>Friendly Support</h3>
+          <p class="muted">Real humans who tinker. Pre‑purchase help and post‑purchase troubleshooting via chat and email.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- Team -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>Meet the Team</h2>
+        <a class="badge" href="mailto:careers@electrostore.example">We’re hiring • careers@electrostore.example</a>
+      </div>
+      <div class="team">
+        <div class="card">
+          <div style="display:flex; gap:14px; align-items:center;">
+            <div class="avatar">RK</div>
+            <div>
+              <h3 style="margin:0">Radhey Kurtadikar</h3>
+              <p class="muted" style="margin:.2rem 0 0">Founder</p>
+            </div>
+          </div>
+          <p class="muted" style="margin-top:10px">Builds the web experience and keeps the storefront fast, accessible, and reliable.</p>
+        </div>
+        <div class="card">
+          <div style="display:flex; gap:14px; align-items:center;">
+            <div class="avatar">OP</div>
+            <div>
+              <h3 style="margin:0">Shubham Katkade</h3>
+              <p class="muted" style="margin:.2rem 0 0">Co-Founder</p>
+            </div>
+          </div>
+          <p class="muted" style="margin-top:10px">Validates modules and writes bite‑sized tutorials for quick wins.</p>
+        </div>
+        <div class="card">
+          <div style="display:flex; gap:14px; align-items:center;">
+            <div class="avatar">CS</div>
+            <div>
+              <h3 style="margin:0">Omkar Hundekar</h3>
+              <p class="muted" style="margin:.2rem 0 0">Co-Founder</p>
+            </div>
+          </div>
+          <p class="muted" style="margin-top:10px">Real‑world tips, and fast responses on your orders.</p>
+        </div>
+        <div class="card">
+          <div style="display:flex; gap:14px; align-items:center;">
+            <div class="avatar">HW</div>
+            <div>
+              <h3 style="margin:0">Hardware Labs</h3>
+              <p class="muted" style="margin:.2rem 0 0">Testing & Guides</p>
+            </div>
+          </div>
+          <p class="muted" style="margin-top:10px">Verifies parts so your builds work first‑time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>What Customers Say</h2>
+        <span class="badge">4.8/5 average across platforms</span>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <p>“Got my sensors in 2 days with excellent packing. The sample code on the product page saved me hours.”</p>
+          <p class="muted" style="margin:6px 0 0">— Ananya, Pune</p>
+        </div>
+        <div class="card">
+          <p>“They actually answered my wiring question at 9pm. Components were genuine and matched datasheets.”</p>
+          <p class="muted" style="margin:6px 0 0">— Karan, Bengaluru</p>
+        </div>
+        <div class="card">
+          <p>“Student‑friendly pricing and everything in one place. We rely on them for our college robotics club.”</p>
+          <p class="muted" style="margin:6px 0 0">— Meera, Mumbai</p>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- Sustainability & Quality -->
+  <section>
+    <div class="container grid-2">
+      <div class="card">
+        <h3>Sustainability</h3>
+        <p class="muted">We minimize plastic, reuse inbound packaging, and offer carbon‑aware shipping options at checkout.</p>
+      </div>
+      <div class="card">
+        <h3>Quality Assurance</h3>
+        <p class="muted">Batch sampling, ESD‑safe handling, and traceability for ICs and modules to reduce DOA rates.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>FAQs</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Do you ship across India?</summary>
+          <p class="muted">Yes. Standard delivery is 2–7 business days based on your pincode. Express options are shown at checkout.</p>
+        </details>
+        <details>
+          <summary>Are parts genuine?</summary>
+          <p class="muted">We prioritize authorized distributors and perform incoming tests on popular ICs, sensors, and modules.</p>
+        </details>
+        <details>
+          <summary>Do you offer student discounts?</summary>
+          <p class="muted">Absolutely. Email your valid student ID to <a href="mailto:support@electrostore.example">support@electrostore.example</a> for a unique coupon.</p>
+        </details>
+        <details>
+          <summary>Can I request a part that’s not listed?</summary>
+          <p class="muted">Yes, use the <a href="contact.html">contact form</a> with manufacturer part number (MPN) and needed quantity.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="container card" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px">
+      <div>
+        <h3 style="margin:0 0 6px">Ready to build something amazing?</h3>
+        <p class="muted" style="margin:0">Browse our curated components and starter kits to get going today.</p>
+      </div>
+      <a class="btn" href="shop.html">Explore the Shop</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
+      <p style="margin:0">© <span id="year"></span> ElectroStore. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('mobileToggle');
+    const menu = document.getElementById('menu');
+    if(toggle){
+      toggle.addEventListener('click',()=>{
+        const open = menu.style.display === 'flex';
+        menu.style.display = open ? 'none' : 'flex';
+        menu.style.flexDirection = 'column';
+        toggle.setAttribute('aria-expanded', String(!open));
+      });
+    }
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

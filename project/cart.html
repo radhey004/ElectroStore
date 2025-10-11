@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - ElectroStore</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="container">
+                <div class="nav-brand">
+                    <h2>ElectroStore</h2>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="shop.html">Shop</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="nav-actions">
+                    <button class="cart-btn active">
+                        Cart (<span id="cartCount">0</span>)
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="cart-section">
+            <div class="container">
+                <h1>Your Shopping Cart</h1>
+                
+                <div class="cart-content">
+                    <div class="cart-items" id="cartItems">
+                        <!-- Cart items will be dynamically loaded here -->
+                    </div>
+                    
+                    <div class="cart-summary">
+                        <div class="summary-card">
+                            <h3>Order Summary</h3>
+                            <div class="summary-row">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">Rs 0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping:</span>
+                                <span id="shipping">Rs 5.99</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax:</span>
+                                <span id="tax">Rs 0.00</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total:</span>
+                                <span id="total">Rs 0.00</span>
+                            </div>
+                            <button class="btn btn-primary checkout-btn" onclick="proceedToCheckout()">
+                                Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="empty-cart" id="emptyCart" style="display: none;">
+                    <h2>Your cart is empty</h2>
+                    <p>Add some products to your cart to get started!</p>
+                    <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('checkoutModal')">&times;</span>
+            <h2>Checkout</h2>
+            <div class="checkout-steps">
+                <div class="step active" id="step1">
+                    <h3>Shipping Information</h3>
+                    <form id="shippingForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name:</label>
+                                <input type="text" id="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name:</label>
+                                <input type="text" id="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address:</label>
+                            <input type="text" id="address" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City:</label>
+                                <input type="text" id="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zipCode">ZIP Code:</label>
+                                <input type="text" id="zipCode" required>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="nextStep()">Continue to Payment</button>
+                    </form>
+                </div>
+
+                <div class="step" id="step2">
+                    <h3>Payment Method</h3>
+                    <div class="payment-options">
+                        <div class="payment-option">
+                            <input type="radio" id="creditCard" name="payment" value="credit" checked>
+                            <label for="creditCard">UPI</label>
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="paypal" name="payment" value="paypal">
+                            <label for="paypal">PayPal</label>
+                        </div>
+                        <div class="payment-option">
+                            <!-- <input type="radio" id="bankTransfer" name="payment" value="bank">
+                            <label for="bankTransfer">Bank Transfer</label> -->
+                        </div>
+                    </div>
+                    <div class="step-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="showQRCode()">Place Order</button>
+                    </div>
+                </div>
+
+                <div class="step" id="step3">
+                    <h3>Complete Your Payment</h3>
+                    <div class="qr-section">
+                        <p>Scan the QR code below to complete your payment:</p>
+                        <div class="qr-code" id="qrCode">
+                            <div class="qr-placeholder">
+                                <div class="qr-grid">
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square filled"></div>
+                                    <div class="qr-square"></div>
+                                </div>
+                            </div>
+                            <p class="qr-text">Payment QR Code</p>
+                        </div>
+                        <div class="payment-info">
+                            <p><strong>Amount:</strong> <span id="finalTotal">Rs 0.00</span></p>
+                            <p><strong>Order ID:</strong> <span id="orderId">#OE-2025-001</span></p>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="confirmPayment()">Confirm Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ElectroStore</h3>
+                    <p>Your ultimate shopping destination for quality products at great prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#returns">Returns</a></li>
+                        <li><a href="#shipping">Shipping</a></li>
+                        <li><a href="#track">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="#facebook">Facebook</a></li>
+                        <li><a href="#twitter">Twitter</a></li>
+                        <li><a href="#instagram">Instagram</a></li>
+                        <li><a href="#newsletter">Newsletter</a></li>
+                    </ul>
+                </div> -->
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ElectroStore. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>
